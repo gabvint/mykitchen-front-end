@@ -170,7 +170,7 @@ const handleSave = async () => {
                 {/* Role-based dashboards */}
             {user.role === 'moderator' && (
               <button
-                className="border py-2 rounded-lg font-medium hover:bg-blue-200 hover:text-blue-700 transition"
+                className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
                 onClick={() => navigate('/moderator/dashboard')}
               >
                 Moderator Dashboard
@@ -178,7 +178,7 @@ const handleSave = async () => {
             )}
             {user.role === 'admin' && (
               <button
-                className="border py-2 rounded-lg font-medium hover:bg-yellow-300 hover:text-yellow-800 transition"
+                className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
                 onClick={() => navigate('/admin/dashboard')}
               >
                 Admin Dashboard
