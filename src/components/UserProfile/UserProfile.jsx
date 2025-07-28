@@ -179,7 +179,7 @@ const handleSave = async () => {
             {user.role === 'admin' && (
               <button
                 className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
-                onClick={() => navigate('/admin/dashboard')}
+                onClick={() => navigate('/admin-page')}
               >
                 Admin Dashboard
               </button>

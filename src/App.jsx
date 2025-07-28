@@ -16,7 +16,7 @@ import SearchResults from './components/SearchResults/SearchResults';
 import SavedRecipes from './components/SavedRecipes/SavedRecipes';
 import EditForm from './components/EditForm/EditForm';
 import ChangePasswordForm from './components/ChangePasswordForm/ChangePasswordForm';
-import AdminProfile from './components/AdminProfile/AdminProfile';
+import AdminPage from './components/AdminPage/AdminPage'
 import ModerateRecipe from './components/ModerateRecipe/ModerateRecipe';
 import UserProfile from './components/UserProfile/UserProfile';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
@@ -106,37 +106,18 @@ const App = () => {
                     recipes={recipes}
                     setRecipes={setRecipes}
                     handleSaveRecipe={handleSaveRecipe}
-                  />
-                }
-              />
-              <Route
-                path="/recipes/:recipeId"
-                element={<RecipeDetails handleDeleteRecipe={handleDeleteRecipe} />}
-              />
-              <Route
-                path="/recipes/user/:userId"
-                element={<UserRecipeDetails />}
-              />
-              <Route
-                path="/recipes/new"
-                element={<RecipeForm handleAddRecipe={handleAddRecipe} />}
-              />
-              <Route
-                path="/recipes/:recipeId/edit"
-                element={<RecipeForm handleUpdateRecipe={handleUpdateRecipe} />}
-              />
-              <Route
-                path="/recipes/:recipeId/comments/:commentId/edit"
-                element={<EditForm />}
-              />
-              <Route
-                path="/recipes/user/:userId/favorites"
-                element={<SavedRecipes handleSaveRecipe={handleSaveRecipe} />}
-              />
-              <Route
-                path="/:userId/change-password"
-                element={<ChangePasswordForm />}
-              />
+                  />}/>
+              <Route path="/recipes/:recipeId"element={<RecipeDetails handleDeleteRecipe={handleDeleteRecipe} />}/>
+              <Route path="/recipes/user/:userId"element={<UserRecipeDetails />}/>
+              <Route path="/recipes/new"element={<RecipeForm handleAddRecipe={handleAddRecipe} />}/>
+              <Route path="/recipes/:recipeId/edit" element={<RecipeForm handleUpdateRecipe={handleUpdateRecipe} />}/>
+              <Route path="/recipes/:recipeId/comments/:commentId/edit"element={<EditForm />}/>
+              <Route path="/recipes/user/:userId/favorites"element={<SavedRecipes handleSaveRecipe={handleSaveRecipe} />}/>
+              <Route path="/:userId/change-password" element={<ChangePasswordForm />}/>
+              <Route path="/profile/:id" element={<UserProfile />} />
+              <Route path="/admin-page" element={<AdminPage />} />
+              <Route path="/moderate-recipes" element={<ModerateRecipe />} />
+              
             </>
           ) : (
             <Route path="/" element={<Landing />} />
@@ -144,10 +125,8 @@ const App = () => {
 
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path="/signin" element={<SigninForm setUser={setUser} />} />
-          <Route path="/profile/:id" element={<UserProfile />} />
-          <Route path="/adminprofile" element={<AdminProfile />} />
-          <Route path="/moderate-recipes" element={<ModerateRecipe />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+
         </Routes>
       </AuthedUserContext.Provider>
     </>
