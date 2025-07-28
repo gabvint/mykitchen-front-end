@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchLogs } from "../../services/authService"
 
+// Demo users data; replace with real user fetching in production
 const users = [
   { id: 1, name: "Jane Admin", username: "janeadmin", role: "admin", email: "jane@site.com" },
   { id: 2, name: "John Mod", username: "johnmod", role: "moderator", email: "john@site.com" },
@@ -25,7 +26,6 @@ const AdminPage = () => {
         const result = await fetchLogs({
           status: logStatus || undefined,
           action: logAction || undefined,
-          // You can add more filters like userId, limit, etc.
         });
         setLogs(result);
       } catch (err) {
@@ -41,7 +41,9 @@ const AdminPage = () => {
   const displayedLogs = logs.filter(
     (l) =>
       l.user?.username?.toLowerCase().includes(searchLog.toLowerCase()) ||
-      l.action?.toLowerCase().includes(searchLog.toLowerCase())
+      l.action?.toLowerCase().includes(searchLog.toLowerCase()) ||
+      l.details?.toLowerCase().includes(searchLog.toLowerCase()) ||
+      l.ip?.toLowerCase().includes(searchLog.toLowerCase())
   );
 
   return (
@@ -103,8 +105,8 @@ const AdminPage = () => {
             onChange={(e) => setLogStatus(e.target.value)}
           >
             <option value="">All Status</option>
-            <option value="Success">Success</option>
-            <option value="Failed">Failed</option>
+            <option value="success">Success</option>
+            <option value="failure">Failed</option>
           </select>
           <select
             className="border rounded px-4 py-2"
@@ -112,11 +114,13 @@ const AdminPage = () => {
             onChange={(e) => setLogAction(e.target.value)}
           >
             <option value="">All Actions</option>
-            <option value="Created">Created</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Deleted">Deleted</option>
-            <option value="Unauthorized">Unauthorized</option>
+            <option value="signup">Signup</option>
+            <option value="login">Login</option>
+            <option value="edit profile">Edit Profile</option>
+            <option value="delete user">Delete User</option>
+            <option value="change password">Change Password</option>
+            <option value="forgot password">Forgot Password</option>
+          
           </select>
         </div>
         {loadingLogs ? (
@@ -131,12 +135,13 @@ const AdminPage = () => {
                 <th className="py-2 px-3 border-b">User</th>
                 <th className="py-2 px-3 border-b">Action</th>
                 <th className="py-2 px-3 border-b">Status</th>
+                <th className="py-2 px-3 border-b">Details</th>
               </tr>
             </thead>
             <tbody>
               {displayedLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="py-5 text-center text-gray-400">
+                  <td colSpan={6} className="py-5 text-center text-gray-400">
                     No logs found.
                   </td>
                 </tr>
@@ -147,8 +152,9 @@ const AdminPage = () => {
                     <td className="px-3 py-2">{log.user?.username || "System"}</td>
                     <td className="px-3 py-2">{log.action}</td>
                     <td className={`px-3 py-2 font-semibold ${log.status === "failure" ? "text-red-600" : "text-green-600"}`}>
-                      {log.status}
+                      {log.status === "success" ? "Success" : "Failed"}
                     </td>
+                    <td className="px-3 py-2">{log.details || "-"}</td>
                   </tr>
                 ))
               )}
