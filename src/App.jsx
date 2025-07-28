@@ -17,7 +17,7 @@ import SavedRecipes from './components/SavedRecipes/SavedRecipes';
 import EditForm from './components/EditForm/EditForm';
 import ChangePasswordForm from './components/ChangePasswordForm/ChangePasswordForm';
 import AdminProfile from './components/AdminProfile/AdminProfile';
-import ModeratorProfile from './components/ModeratorProfile/ModeratorProfile';
+import ModerateRecipe from './components/ModerateRecipe/ModerateRecipe';
 import UserProfile from './components/UserProfile/UserProfile';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
@@ -146,7 +146,7 @@ const App = () => {
           <Route path="/signin" element={<SigninForm setUser={setUser} />} />
           <Route path="/profile/:id" element={<UserProfile />} />
           <Route path="/adminprofile" element={<AdminProfile />} />
-          <Route path="/moderator-profile" element={<ModeratorProfile />} />
+          <Route path="/moderate-recipes" element={<ModerateRecipe />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </AuthedUserContext.Provider>

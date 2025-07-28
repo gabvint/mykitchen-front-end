@@ -70,7 +70,7 @@ const handleSave = async () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-cream">
-      <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-10 max-w-sm w-full font-albert border border-green-100">
+      <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-10 max-w-sm w-full font-albert border border-green-100 mt-56 mb-36">
         {editMode ? (
           <>
             <div className="w-full space-y-3">
@@ -171,7 +171,7 @@ const handleSave = async () => {
             {user.role === 'moderator' && (
               <button
                 className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
-                onClick={() => navigate('/moderator/dashboard')}
+                onClick={() => navigate('/moderate-recipes')}
               >
                 Moderator Dashboard
               </button>
