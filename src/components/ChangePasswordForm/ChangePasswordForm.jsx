@@ -66,7 +66,7 @@ const ChangePasswordForm = () => {
 
   return (
     <div className="flex bg-cream min-h-screen justify-center items-center font-albert">
-      <div className="bg-white rounded-xl px-8 pt-10 pb-10 mt-24 max-w-md w-full shadow-lg">
+      <div className="bg-white rounded-xl px-8 pt-10 pb-10 mt-56 mb-36 max-w-md w-full shadow-lg">
         {/* Message */}
         {message && (
           <div className={`mb-5 text-center text-sm font-semibold ${message.startsWith('✅') ? 'text-green-600' : 'text-red-500'}`}>

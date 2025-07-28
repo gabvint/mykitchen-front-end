@@ -55,8 +55,6 @@ const NavBar = ({ handleSignout }) => {
               <li className='p-4 hover:text-darksage'><Link to={`/recipes/user/${user._id}`}>MY RECIPES</Link></li>
               <li className='p-4 hover:text-darksage'><Link to={`/recipes/user/${user._id}/favorites`}>SAVED RECIPES</Link></li>
               <li className='p-4 hover:text-darksage'><Link to={`/profile/${user._id}`}>PROFILE</Link></li>
-              <li className='p-4 hover:text-darksage'><Link to={`/${user._id}/change-password`}>CHANGE PASSWORD</Link></li>
-              <li className='p-4 hover:text-darksage'><Link to="/moderator-profile">MODERATOR PROFILE</Link></li> {/* Always visible */}
               <li className='p-4 hover:text-darksage'><Link to="" onClick={handleSignout}>SIGN OUT</Link></li>
             </ul>
           </div>

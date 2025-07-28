@@ -70,7 +70,7 @@ const handleSave = async () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-cream">
-      <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-10 max-w-sm w-full font-albert border border-green-100">
+      <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-10 max-w-sm w-full font-albert border border-green-100 mt-56 mb-36">
         {editMode ? (
           <>
             <div className="w-full space-y-3">
@@ -170,15 +170,15 @@ const handleSave = async () => {
                 {/* Role-based dashboards */}
             {user.role === 'moderator' && (
               <button
-                className="border py-2 rounded-lg font-medium hover:bg-blue-200 hover:text-blue-700 transition"
-                onClick={() => navigate('/moderator/dashboard')}
+                className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
+                onClick={() => navigate('/moderate-recipes')}
               >
                 Moderator Dashboard
               </button>
             )}
             {user.role === 'admin' && (
               <button
-                className="border py-2 rounded-lg font-medium hover:bg-yellow-300 hover:text-yellow-800 transition"
+                className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white  transition"
                 onClick={() => navigate('/admin/dashboard')}
               >
                 Admin Dashboard
