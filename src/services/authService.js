@@ -200,6 +200,19 @@ const getSecurityQuestionsByEmail = async (email) => {
   return json; // { securityQuestion1, securityQuestion2 }
 };
 
+export const fetchLogs = async ({ userId = "", action = "", status = "", limit = 100, skip = 0 }) => {
+  const token = localStorage.getItem("token");
+  const params = new URLSearchParams({ userId, action, status, limit, skip });
+  const res = await fetch(`${BACKEND_URL}/users/logs?${params.toString()}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || "Error fetching logs");
+  return json;
+};
 
 const signout = () => {
   localStorage.removeItem('token');
