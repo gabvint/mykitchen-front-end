@@ -187,33 +187,77 @@ const deleteAccount = async (password, securityAnswer1, securityAnswer2) => {
   }
 }
 
-
+// used for delete account
 const getSecurityQuestionsByEmail = async (email) => {
-  // will reuse a route for this 
-  const res = await fetch(`${BACKEND_URL}/users/forgot-password`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email }),
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error || 'Error fetching questions');
-  return json; // { securityQuestion1, securityQuestion2 }
+  try {
+    // will reuse a route for this 
+    const res = await fetch(`${BACKEND_URL}/users/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    throw new Error(error.message || 'Error fetching questions');
+  }
+  
 };
 
 export const fetchLogs = async ({ userId = "", action = "", status = "", limit = 100, skip = 0 }) => {
-  const token = localStorage.getItem("token");
-  const params = new URLSearchParams({ userId, action, status, limit, skip });
-  const res = await fetch(`${BACKEND_URL}/users/logs?${params.toString()}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    }
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error || "Error fetching logs");
-  return json;
+  try {
+    const token = localStorage.getItem("token");
+    const params = new URLSearchParams({ userId, action, status, limit, skip });
+    const res = await fetch(`${BACKEND_URL}/users/logs?${params.toString()}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+     throw new Error(error.error || "Error fetching logs");
+  }
 };
 
+
+// admin usage
+const getAllUsers = async() => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BACKEND_URL}/users`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await res.json();
+    return json; 
+  } catch (error) {
+    throw new Error(error.error || "Failed to fetch users.");
+  }
+}
+
+ const changeUserRole = async (userId, newRole, adminPassword) => {
+
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BACKEND_URL}/users/${userId}/role`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ role: newRole, adminPassword }),
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    throw new Error(error.error || "Failed to update role.");
+  }
+
+};
 const signout = () => {
   localStorage.removeItem('token');
 };
@@ -231,4 +275,6 @@ export {
   updateProfile,
   deleteAccount,
   getSecurityQuestionsByEmail,
+  getAllUsers,
+  changeUserRole,
 };
