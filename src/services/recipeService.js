@@ -47,6 +47,7 @@ const create = async (formData) => {
           },
           body: JSON.stringify(formData),
         });
+        alert("Recipe submitted for approval! It will appear once approved by a moderator.");
         return res.json();
       } catch (error) {
         console.log(error);
@@ -159,6 +160,41 @@ const savedRecipes = async (userId) => {
     }
 }
 
+const pendingRecipes = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/pending`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to fetch recipes");
+    }
+    return await res.json();
+  } catch (error) {
+    throw new Error(error.message || "Failed to fetch recipes");
+  }
+};
+
+const approveRecipe = async (recipeId, approve) => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${recipeId}/approve`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ approve }),
+    });
+
+    return await res.json();
+  } catch (error) {
+    throw new Error(error.message || "Failed to update recipe approval.");
+  }
+};
+
+
 export {
     index,
     show,
@@ -171,4 +207,6 @@ export {
     showUserRecipes,
     saveRecipe,
     savedRecipes,
+    pendingRecipes, 
+    approveRecipe, 
 }

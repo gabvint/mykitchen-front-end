@@ -36,7 +36,6 @@ const NavBar = ({ handleSignout }) => {
               <li className='hover:text-darksage'><Link to="/recipes/new">Add Recipe</Link></li>
               <li className='hover:text-darksage'><Link to={`/recipes/user/${user._id}`}>My Recipes</Link></li>
               <li className='hover:text-darksage'><Link to={`/recipes/user/${user._id}/favorites`}>Saved Recipes</Link></li>
-
               <li className='hover:text-darksage'><Link to={`/profile/${user._id}`}>Profile</Link></li> 
 
             </div>
