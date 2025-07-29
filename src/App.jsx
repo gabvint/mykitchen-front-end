@@ -39,7 +39,7 @@ const App = () => {
     const newRecipe = await recipeService.create(formData);
     setRecipes([...recipes, newRecipe]);
     console.log(newRecipe);
-    navigate('/');
+    navigate(`/recipes/user/${user._id}`);
   };
 
   const handleDeleteRecipe = async (recipeId) => {

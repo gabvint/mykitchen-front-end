@@ -229,7 +229,10 @@ const AdminPage = () => {
               <option value="delete user">Delete User</option>
               <option value="change password">Change Password</option>
               <option value="forgot password">Forgot Password</option>
-              <option value="role change">Role Change</option>
+              <option value="change role">Change Role</option>
+              <option value="recipe approval">Recipe Approval</option>
+              <option value="recipe creation">Recipe Creation</option>
+
             </select>
           </div>
           {loadingLogs ? (
