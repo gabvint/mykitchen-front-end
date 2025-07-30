@@ -232,6 +232,7 @@ const AdminPage = () => {
               <option value="change role">Change Role</option>
               <option value="recipe approval">Recipe Approval</option>
               <option value="recipe creation">Recipe Creation</option>
+              <option value="unauthorized access">Unauthorized Access</option>
 
             </select>
           </div>
