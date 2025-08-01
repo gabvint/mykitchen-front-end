@@ -47,7 +47,6 @@ const create = async (formData) => {
           },
           body: JSON.stringify(formData),
         });
-        alert("Recipe submitted for approval! It will appear once approved by a moderator.");
         return res.json();
       } catch (error) {
         console.log(error);
