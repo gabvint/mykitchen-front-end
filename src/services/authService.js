@@ -38,6 +38,11 @@ const signin = async (user) => {
     }
     if (json.token) {
       localStorage.setItem('token', json.token);
+      // Store lastLoginNotice if available
+      if (json.lastLogin) {
+        localStorage.setItem('lastLoginNotice', json.lastLogin);
+      }
+
       const user = JSON.parse(atob(json.token.split('.')[1]));
       return user;
     }

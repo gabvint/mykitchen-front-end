@@ -72,12 +72,12 @@ const RecipeForm = (props) => {
             return; 
         }
 
-        if (!formData.preptime || formData.preptime.length > 10) {
+        if (!formData.preptime || formData.preptime.length > 30) {
             setError('Prep time must be a maximum of 10 characters');
             return; 
         }
 
-        if (!formData.cooktime || formData.cooktime.length > 10) {
+        if (!formData.cooktime || formData.cooktime.length > 30) {
             setError('Cook time must be a maximum of 10 characters');
             return; 
         }
@@ -258,7 +258,14 @@ const RecipeForm = (props) => {
                                 checked={formData.isPublic}
                                 onChange={handleChange}
                                 className='h-4 w-4'/>
+
                         </div>
+
+                          {formData.isPublic && (
+                            <div className="text-sm text-gray-500 mt-1">
+                              Once your recipe is submitted, it will be approved by a moderator before being posted in the public community.
+                            </div>
+                          )}
 
                         <button
                             className='relative font-bold rounded-xl px-10 py-2  overflow-hidden group bg-sage text-white hover:bg-gradient-to-r hover:from-sage

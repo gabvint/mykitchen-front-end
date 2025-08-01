@@ -14,6 +14,16 @@ const UserProfile = () => {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [showDeleteForm, setShowDeleteForm] = useState(false);
+  const [lastLoginNotice, setLastLoginNotice] = useState(null);
+
+  useEffect(() => {
+    // Check for lastLoginNotice in localStorage
+    const lastLogin = localStorage.getItem('lastLoginNotice');
+    if (lastLogin) {
+      setLastLoginNotice(lastLogin);
+      localStorage.removeItem('lastLoginNotice'); 
+    }
+  }, []);
 
   useEffect(() => {
     const userProfile = async () => {
@@ -36,23 +46,33 @@ const UserProfile = () => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
   };
 
-const handleSave = async () => {
-  setSaving(true);
-  try {
-    // Only send fields allowed by backend
-    const updated = await authService.updateProfile({
-      firstname: editForm.firstname,
-      lastname: editForm.lastname,
-    });
-    setUser(updated);
-    setEditMode(false);
-    setEditForm(updated);
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setSaving(false);
-  }
-};
+  const handleSave = async () => {
+    // Validate firstname and lastname length
+    if (editForm.firstname.length < 2 || editForm.firstname.length > 30) {
+      setError('First name must be between 2 and 30 characters.');
+ 
+    }
+    if (editForm.lastname.length < 2 || editForm.lastname.length > 30) {
+      setError('Last name must be between 2 and 30 characters.');
+  
+    }
+
+    setSaving(true);
+    try {
+      // Only send fields allowed by backend
+      const updated = await authService.updateProfile({
+        firstname: editForm.firstname,
+        lastname: editForm.lastname,
+      });
+      setUser(updated);
+      setEditMode(false);
+      setEditForm(updated);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (loading)
     return (
@@ -71,9 +91,16 @@ const handleSave = async () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-cream">
       <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-10 max-w-sm w-full font-albert border border-green-100 mt-56 mb-36">
+         {lastLoginNotice && (
+          <div className="mb-4 px-4 py-2 bg-blue-100 text-blue-800 rounded shadow text-center text-sm font-medium">
+            Last successful login: {new Date(lastLoginNotice).toLocaleString()}
+          </div>
+        )}
+        
         {editMode ? (
           <>
             <div className="w-full space-y-3">
+              <div>Firstname and Lastname should be 2 to 30 character long only</div>
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1" htmlFor="firstname">
                   First Name
@@ -130,14 +157,14 @@ const handleSave = async () => {
               </div>
             </div>
             <div className="flex gap-3 w-full mt-6">
-            <button
+              <button
                 className="border py-2 rounded-lg font-semibold bg-[#4B7A5A] text-white flex-1 shadow hover:bg-[#33593c] transition"
                 onClick={handleSave}
                 disabled={saving}
               >
                 {saving ? "Saving..." : "Save"}
-            </button>
-            <button
+              </button>
+              <button
                 className="border py-2 rounded-lg font-semibold bg-gray-200 flex-1 hover:bg-gray-300 transition"
                 onClick={() => {
                   setEditMode(false);
@@ -145,7 +172,7 @@ const handleSave = async () => {
                 }}
               >
                 Cancel
-            </button>
+              </button>
             </div>
           </>
         ) : (
@@ -165,7 +192,6 @@ const handleSave = async () => {
               <button className="border py-2 rounded-lg font-medium hover:bg-green-300 hover:text-white transition">
                <Link to={`/recipes/user/${user._id}/favorites`}>Saved Recipes</Link>
               </button>
-
 
                 {/* Role-based dashboards */}
             {user.role === 'moderator' && (
