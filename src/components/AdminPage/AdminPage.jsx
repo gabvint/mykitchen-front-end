@@ -1,9 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllUsers, changeUserRole, fetchLogs } from "../../services/authService";
 import { AuthedUserContext } from "../../App";
 
 const AdminPage = () => {
   const thisUser = useContext(AuthedUserContext);
+  const navigate = useNavigate();
+  
+    // Redirect non-admin users
+  useEffect(() => {
+    if (thisUser.role !== 'admin') {
+      // Redirect user to the Forbidden page if they are not an admin
+      navigate('/forbidden'); 
+    }
+  }, [thisUser.role, navigate]);
 
   // USER ROLES STATE
   const [users, setUsers] = useState([]);
@@ -232,6 +242,10 @@ const AdminPage = () => {
               <option value="change role">Change Role</option>
               <option value="recipe approval">Recipe Approval</option>
               <option value="recipe creation">Recipe Creation</option>
+              <option value="edited recipe">Edited Recipe</option>
+              <option value="deleted recipe">Deleted Recipe</option>
+              <option value="unauthorized access">Unauthorized Access</option>
+              
 
             </select>
           </div>

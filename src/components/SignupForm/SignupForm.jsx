@@ -357,6 +357,12 @@ const SignupForm = (props) => {
                     <option value="What is your favorite color?">
                       What is your favorite color?
                     </option>
+                    <option value="In what city or town did your parents meet?">
+                      In what city or town did your parents meet?
+                    </option>
+                    <option value="What was your favorite food as a child?">
+                      What was your favorite food as a child?
+                    </option>
                   </select>
                   {errors.securityQuestion1 && (
                     <p className="text-xs text-red-500 mb-2">{errors.securityQuestion1}</p>
@@ -398,6 +404,12 @@ const SignupForm = (props) => {
                     </option>
                     <option value="What was your childhood nickname?">
                       What was your childhood nickname?
+                    </option>
+                    <option value="What is the name of the company of your first job?">
+                      What is the name of the company of your first job?
+                    </option>
+                    <option value="What was the first concert you attended?">
+                      What was the first concert you attended?
                     </option>
                   </select>
                   {errors.securityQuestion2 && (

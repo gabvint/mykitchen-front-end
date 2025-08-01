@@ -20,6 +20,8 @@ import AdminPage from './components/AdminPage/AdminPage'
 import ModerateRecipe from './components/ModerateRecipe/ModerateRecipe';
 import UserProfile from './components/UserProfile/UserProfile';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Forbidden from './components/Forbidden/Forbidden';
+import NotFound from './components/NotFound/NotFound';
 
 export const AuthedUserContext = createContext(null);
 
@@ -117,6 +119,7 @@ const App = () => {
               <Route path="/profile/:id" element={<UserProfile />} />
               <Route path="/admin-page" element={<AdminPage />} />
               <Route path="/moderate-recipes" element={<ModerateRecipe />} />
+              <Route path="/forbidden" element={<Forbidden />} />
               
             </>
           ) : (
@@ -126,6 +129,7 @@ const App = () => {
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path="/signin" element={<SigninForm setUser={setUser} />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
       </AuthedUserContext.Provider>

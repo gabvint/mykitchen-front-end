@@ -1,7 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { pendingRecipes, approveRecipe } from '../../services/recipeService'; 
+import { useNavigate } from "react-router-dom";
+import { AuthedUserContext } from "../../App";
 
 const ModerateRecipe = () => {
+
+  const thisUser = useContext(AuthedUserContext);
+  const navigate = useNavigate();
+  
+    // Redirect non-admin users
+  useEffect(() => {
+    if (thisUser.role !== 'moderator') {
+      // Redirect user to the Forbidden page if they are not an admin
+      navigate('/forbidden'); 
+    }
+  }, [thisUser.role, navigate]);
+
+
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [approveLoading, setApproveLoading] = useState(null); // recipe id if approving
